@@ -1,0 +1,13 @@
+Date: 6 Feb 2026 at 4:45 pm
+BUG Title: Some creators’ chats are not showing in the chat list.
+BUG Found : At 4:45 PM, some creators’ chats started showing a 500 Internal Server Error automatically.
+Root Cause:The chat API returned 500 errors only for certain users because replica set instability can cause inconsistent read/write routing. Requests for some users were hitting a node with stale data, delayed replication, or connectivity issues, while others were routed to a healthy primary node.
+High-traffic, user-specific queries (like chat and chat search) are more sensitive to such inconsistencies, which is why the issue appeared selectively rather than for all users.
+
+
+How to Solve/Proposed Solution:
+Since zero downtime was required, the database migration was attempted using a MongoDB replica set. This involved changes to network security, firewall rules, and MongoDB configuration so both servers could communicate over IPs.
+The replica set approach did not work as expected and caused unintended MongoDB configuration issues. As a result, high-traffic APIs like chat and chat search started returning unexpected 500 errors without any code changes.
+Once the database was fully moved to the new server and the replica set configuration was removed, the APIs immediately started working normally.
+
+Solved: 9 Feb 2025
