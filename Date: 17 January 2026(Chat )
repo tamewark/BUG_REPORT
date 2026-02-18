@@ -1,0 +1,26 @@
+Date: 17 January 2026
+BUG Title: Chat is missing on the creator side, and recent and read filters are not working.
+
+
+BUG Found: On 17 January, for one creator who has approximately 900 followers, the chat was not loading. The admin panel was also taking a long time to load. By Monday, around 50% of creators chats were not loading, and the API was returning a 504 Gateway Timeout error.
+
+Root Cause: 
+The server was under attack, causing abnormal load.
+
+
+A load average of 18.87 indicates severe server stress (normal load should be below 2.0).
+
+
+Multiple processes were consuming approximately 30.1% CPU each, leading to performance degradation.
+
+
+As a result, it was necessary to increase CPU capacity to stabilize the system
+How to Solve / Proposed Solution:
+Deepika temporarily reduced the API response load to minimize server stress.
+
+
+The server CPU size was increased to handle higher processing demands.
+
+
+After these changes, the issue was resolved and system performance stabilized.
+Solved: 19 Jan and 20 Jan 2025
